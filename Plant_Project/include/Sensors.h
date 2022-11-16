@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-int AverageOf100Samples(int pin);
+void SensorSample(int enablePin, int writePin, int *pValue); 
 
 void PrintSensorValues(int MoistureSensorValue, int LightDependentResistorValue);
 
