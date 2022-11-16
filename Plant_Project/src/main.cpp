@@ -1,33 +1,43 @@
 /* 
  *  Plant Data Collection with Moisture Sensor and Light Dependen Resistor
  *  Created 06 March 2022 
- *  modified 25 May 2022 
  *  @author Nick Mitchell
  */ 
 #include <Arduino.h>
-#include <Sensors.h>
 
-#define MoistureSensorPin D5
-#define LightDependentResistorPin D6
+#include "Sensors.h"
+#include "Wifi.h"
 
-/* Set Initial Values */
-float MoistureSensorValue = 0;
-float LightDependentResistorValue = 0;
+// Analog writes pins for each sensor
+#define analogSensorPort A0
 
-void setup() {
+// Voltage pins for each sensor
+#define MoistureSensorEnable D1
+#define LDREnable D2
+
+void setup(){
+  // Serial port for debugging purposes
   Serial.begin(115200);
+
+  // Setup pins
+  pinMode(A0,INPUT);
+  pinMode(D1,OUTPUT);
+  pinMode(D2,OUTPUT);
 }
 
 void loop() {
 
+  // Variables to hold the values for each sensor
+  int moistureSensorValue = 0; 
+  int lightDependentResistorValue = 0; 
+
   // Collect value for both sensors
-  MoistureSensorValue = AverageOf100Samples(MoistureSensorPin);
-  LightDependentResistorValue = AverageOf100Samples(LightDependentResistorValue);
+  SensorSample(MoistureSensorEnable, analogSensorPort, &moistureSensorValue);
+  SensorSample(LDREnable, analogSensorPort, &lightDependentResistorValue);
 
   // Print values to serial monitor
-  PrintSensorValues(MoistureSensorValue, LightDependentResistorValue);
+  PrintSensorValues(moistureSensorValue, lightDependentResistorValue); 
   
-  // Wait for one minute before taking next sample
+  // Wait before taking next sample
   delay(100);
-
 }
