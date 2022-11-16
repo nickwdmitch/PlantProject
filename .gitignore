@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+Plant_Project/include/NetworkCredentials.h
+Plant_Project/src/NetworkCredentials.cpp
