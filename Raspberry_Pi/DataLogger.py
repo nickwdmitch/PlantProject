@@ -7,7 +7,7 @@ from time import sleep
 fileName = 'analog-data.csv'
 
 # Set test time in minutes (1440 = 1 hour)
-testTimeValue = 5
+testTimeValue = 1440
 testTime = datetime.datetime.now() + datetime.timedelta(minutes=testTimeValue) 
 
 # Connect to to arduino serial port
